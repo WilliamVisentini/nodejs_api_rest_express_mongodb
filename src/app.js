@@ -1,67 +1,20 @@
 import express from "express";
+import connect_db from "./config/db_connect.js";
+import livro from "./models/Livro.js";
+
+const connect = await connect_db();
+
+connect.on("error", (err) => {
+  console.error("Erro de Conexão", err);
+});
+
+connect.once("open", () => {
+  console.log("Conexão executada com sucesso!")
+});
 
 const app = express();
-app.use(express.json());
 
-const livros = [
-  {
-    id: 1,
-    titulo: "O Senhor dos Anéis: A Sociedade do Anel",
-    autor: {
-      nome: "J.R.R.",
-      sobrenome: "Tolkien"
-    },
-    anoPublicacao: 1954,
-    editora: "HarperCollins",
-    ISBN: "978-0261103573",
-    generos: ["Fantasia", "Aventura"],
-    paginas: 423,
-    avaliacao: 4.9,
-    disponibilidade: {
-      capaDura: true,
-      ebook: true,
-      audiolivro: true
-    }
-  },
-  {
-    id: 2,
-    titulo: "1984",
-    autor: {
-      nome: "George",
-      sobrenome: "Orwell"
-    },
-    anoPublicacao: 1949,
-    editora: "Companhia das Letras",
-    ISBN: "978-8535914849",
-    generos: ["Distopia", "Ficção Científica", "Política"],
-    paginas: 336,
-    avaliacao: 4.7,
-    disponibilidade: {
-      capaDura: false,
-      ebook: true,
-      audiolivro: true
-    }
-  },
-  {
-    id: 3,
-    titulo: "Duna",
-    autor: {
-      nome: "Frank",
-      sobrenome: "Herbert"
-    },
-    anoPublicacao: 1965,
-    editora: "Aleph",
-    ISBN: "978-8576573134",
-    generos: ["Ficção Científica", "Aventura"],
-    paginas: 680,
-    avaliacao: 4.8,
-    disponibilidade: {
-      capaDura: true,
-      ebook: true,
-      audiolivro: false
-    }
-  }
-];
+app.use(express.json());
 
 function buscaLivro(id) {
   return livros.findIndex(livro => livro.id === Number(id));
@@ -71,8 +24,9 @@ app.get("/", (req, res) => {
   res.status(200).send("Curso de Node.js");
 });
 
-app.get("/livros", (req, res) => {
-  res.status(200).json(livros);
+app.get("/livros", async (req, res) => {
+  const listaLivros = await livro.find({});
+  res.status(200).json(listaLivros);
 });
 
 app.get("/livros/:id", (req, res) => {
