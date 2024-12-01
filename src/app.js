@@ -5,12 +5,58 @@ app.use(express.json());
 
 const livros = [
   {
-    id: 1,
-    titulo: "O Senhor dos Anéis"
+    "titulo": "O Senhor dos Anéis: A Sociedade do Anel",
+    "autor": {
+      "nome": "J.R.R.",
+      "sobrenome": "Tolkien"
+    },
+    "anoPublicacao": 1954,
+    "editora": "HarperCollins",
+    "ISBN": "978-0261103573",
+    "generos": ["Fantasia", "Aventura"],
+    "paginas": 423,
+    "avaliacao": 4.9,
+    "disponibilidade": {
+      "capaDura": true,
+      "ebook": true,
+      "audiolivro": true
+    }
   },
   {
-    id: 2,
-    titulo: "O Hobbit"
+    "titulo": "1984",
+    "autor": {
+      "nome": "George",
+      "sobrenome": "Orwell"
+    },
+    "anoPublicacao": 1949,
+    "editora": "Companhia das Letras",
+    "ISBN": "978-8535914849",
+    "generos": ["Distopia", "Ficção Científica", "Política"],
+    "paginas": 336,
+    "avaliacao": 4.7,
+    "disponibilidade": {
+      "capaDura": false,
+      "ebook": true,
+      "audiolivro": true
+    }
+  },
+  {
+    "titulo": "Duna",
+    "autor": {
+      "nome": "Frank",
+      "sobrenome": "Herbert"
+    },
+    "anoPublicacao": 1965,
+    "editora": "Aleph",
+    "ISBN": "978-8576573134",
+    "generos": ["Ficção Científica", "Aventura"],
+    "paginas": 680,
+    "avaliacao": 4.8,
+    "disponibilidade": {
+      "capaDura": true,
+      "ebook": true,
+      "audiolivro": false
+    }
   }
 ]
 
